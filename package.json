@@ -1,0 +1,19 @@
+{
+  "name": "wanadev-project-format",
+  "version": "0.0.0",
+  "description": "Wanadev Project Format",
+  "main": "lib/index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.wanadev.org:interne/wanadev-project-format.git"
+  },
+  "author": "Wanadev",
+  "license": "Proprietary",
+  "dependencies": {
+    "abitbol": "^1.0.3"
+  }
+}
