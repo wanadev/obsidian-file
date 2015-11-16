@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "license": "Proprietary",
   "dependencies": {
     "abitbol": "^1.0.3"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^2.3.3"
   }
 }
