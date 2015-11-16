@@ -26,12 +26,17 @@ describe ("codecs", function () {
         it("can encode data", function () {
             var data = {foo: "bar"};
             var encoded = codecs.jsonDeflateEncoder(data);
-            expect(encoded.length).to.be.greater.than(0);
+            expect(encoded.length).to.be.greaterThan(0);
             expect(encoded).not.to.equal('{"foo":"bar"}');
         });
 
         it("can decode data", function () {
-            throw new Error("NotImplementedError");  // TODO
+            var data = [0xAB, 0x56, 0x4A, 0xCB, 0xCF, 0x57, 0xB2, 0x52, 0x4A, 0x4A, 0x2C, 0x52, 0xAA, 0x05];
+            var data2 = new Buffer(data);
+            var decoded = codecs.jsonDeflateDecoder(data);
+            var decoded2 = codecs.jsonDeflateDecoder(data2);
+            expect(decoded).to.eql({foo: "bar"});
+            expect(decoded2).to.eql({foo: "bar"});
         });
 
     });

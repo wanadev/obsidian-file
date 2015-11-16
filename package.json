@@ -14,7 +14,8 @@
   "author": "Wanadev",
   "license": "Proprietary",
   "dependencies": {
-    "abitbol": "^1.0.3"
+    "abitbol": "^1.0.3",
+    "pako": "^0.2.8"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
