@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wxHexEditor_XML_TAG>
+  <filename path="/home/flo/wprj">
+    <TAG id="0">
+      <start_offset>0</start_offset>
+      <end_offset>3</end_offset>
+      <tag_text>magic</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#6B5CFF</note_colour>
+    </TAG>
+    <TAG id="1">
+      <start_offset>4</start_offset>
+      <end_offset>5</end_offset>
+      <tag_text>version</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#D54DE0</note_colour>
+    </TAG>
+    <TAG id="2">
+      <start_offset>6</start_offset>
+      <end_offset>15</end_offset>
+      <tag_text>type</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#1A547D</note_colour>
+    </TAG>
+    <TAG id="3">
+      <start_offset>16</start_offset>
+      <end_offset>16</end_offset>
+      <tag_text>metadataFormat</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#00C8F7</note_colour>
+    </TAG>
+    <TAG id="4">
+      <start_offset>17</start_offset>
+      <end_offset>20</end_offset>
+      <tag_text>metadataOffset</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#0091B3</note_colour>
+    </TAG>
+    <TAG id="5">
+      <start_offset>21</start_offset>
+      <end_offset>24</end_offset>
+      <tag_text>metadataLength</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#005D73</note_colour>
+    </TAG>
+    <TAG id="6">
+      <start_offset>25</start_offset>
+      <end_offset>25</end_offset>
+      <tag_text>projectFormat</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#00FF71</note_colour>
+    </TAG>
+    <TAG id="7">
+      <start_offset>26</start_offset>
+      <end_offset>29</end_offset>
+      <tag_text>projectOffset</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#00AF4E</note_colour>
+    </TAG>
+    <TAG id="8">
+      <start_offset>30</start_offset>
+      <end_offset>33</end_offset>
+      <tag_text>projectLength</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#007534</note_colour>
+    </TAG>
+    <TAG id="9">
+      <start_offset>34</start_offset>
+      <end_offset>34</end_offset>
+      <tag_text>blobIndexFormat</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#FFBA00</note_colour>
+    </TAG>
+    <TAG id="10">
+      <start_offset>35</start_offset>
+      <end_offset>38</end_offset>
+      <tag_text>blobIndexOffset</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#FF8700</note_colour>
+    </TAG>
+    <TAG id="11">
+      <start_offset>39</start_offset>
+      <end_offset>42</end_offset>
+      <tag_text>blobIndexLength</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#FF5E00</note_colour>
+    </TAG>
+    <TAG id="12">
+      <start_offset>43</start_offset>
+      <end_offset>46</end_offset>
+      <tag_text>blobsOffset</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#FF0044</note_colour>
+    </TAG>
+    <TAG id="13">
+      <start_offset>47</start_offset>
+      <end_offset>50</end_offset>
+      <tag_text>blobsLength</tag_text>
+      <font_colour>#313739</font_colour>
+      <note_colour>#F64BCB</note_colour>
+    </TAG>
+  </filename>
+</wxHexEditor_XML_TAG>

@@ -1,0 +1,90 @@
+#!/usr/bin/env node
+
+"use strict";
+
+var fs = require("fs");
+var cli = require("cli");
+var WProjectFile = require("../lib").WProjectFile;
+
+cli.enable("status");
+
+cli.parse({
+    extract: ["x", "Extract the sections of the given project"],
+    create: ["c", "Create a project file from the given files"],
+    file: ["f", "The project file to read or write", "file", null],
+
+    type: ["t", "Project type", "string", "GENERIC"],
+    metadata: ["m", "JSON file that contains project's metadata", "file", null],
+    "metadata-format": ["M", "Format of the metadata section (0: JSON, 1: JSON+Deflate)", "n", 1],
+    project:  ["p", "JSON file that contains the seriallized project", "file", null],
+    "project-format": ["P", "Format of the project section (0: JSON, 1: JSON+Deflate)", "n", 1],
+    index: ["i", "JSON file that contains the blob index (automatically built by default)", "file", null],
+    "index-format": ["I", "Format of the blob index section (0: JSON, 1: JSON+Deflate)", "n", 1],
+});
+
+cli.main(function (args, opts) {
+    if (!opts.extract && !opts.create) {
+        cli.error("You must define one of the following options: -x -c");
+        console.log("Try 'wanaproject -h' to get more informations");
+        process.exit(1);
+    }
+
+    if (!opts.file) {
+        cli.error("You must define a working file with the -f option");
+        console.log("Try 'wanaproject -h' to get more informations");
+        process.exit(1);
+    }
+
+    if (opts.extract) {
+        extract(opts.file, args[0] || "./");
+    } else {
+        var metadata = opts.metadata;
+        var project = opts.project;
+        var index = opts.index;
+        var files = [];
+
+        for (var i = 0 ; i < args.length ; i++) {
+            if (!metadata && args[i].indexOf("__metadata__.json" > -1)) {
+                metadata = args[i];
+            } else if (!project && args[i].indexOf("__project__.json" > -1)) {
+                project = args[i];
+            } if (!index && args[i].indexOf("__blobindex__.json" > -1)) {
+                index = args[i];
+            } else {
+                files.push(args[i]);
+            }
+        }
+
+        create(opts.file, metadata, project, index, files, {
+            metadataFormat: opts["metadata-format"],
+            projectFormat: opts["project-format"],
+            blobIndexFormat: opts["index-format"],
+            type: opts.type
+        });
+    }
+});
+
+function extract(source, dest) {
+    // TODO
+}
+
+function create(dest, metadata, project, index, files, options) {
+    var wp = new WProjectFile();
+
+    wp.type = options.type;
+
+    if (metadata) {
+        console.log("* Adding metadata from: " + metadata);
+        wp.metadata = JSON.parse(fs.readFileSync(metadata, "utf8"));
+    }
+
+    if (project) {
+        console.log("* Adding project from: " + project);
+        wp.project = JSON.parse(fs.readFileSync(project, "utf8"));
+    }
+
+    // TODO Blobs
+
+    fs.writeFileSync(dest, wp.exportAsBlob(options));
+    cli.ok("Project file writen: " + dest);
+}
