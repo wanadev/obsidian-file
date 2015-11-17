@@ -88,5 +88,50 @@ describe("WprojectFile", function () {
         });
 
     });
+
+    describe("_loadHeader", function () {
+
+        var project = null;
+        var header = new Buffer([
+            0x57, 0x50, 0x52, 0x4a, 0x00, 0x01, 0x47, 0x45,
+            0x4e, 0x45, 0x52, 0x49, 0x43, 0x20, 0x20, 0x20,
+            0x01, 0x00, 0x00, 0x00, 0x33, 0x00, 0x00, 0x00,
+            0x0a, 0x01, 0x00, 0x00, 0x00, 0x3d, 0x00, 0x00,
+            0x00, 0x14, 0x01, 0x00, 0x00, 0x00, 0x51, 0x00,
+            0x00, 0x00, 0x1e, 0x00, 0x00, 0x00, 0x6f, 0x00,
+            0x00, 0x00, 0x28
+        ]);
+
+        before(function () {
+            project = new WProjectFile();
+        });
+
+        it("can extract all fields of the header", function () {
+            var headerData = project._loadHeader(header);
+
+            expect(headerData.magic).to.equal("WPRJ");
+            expect(headerData.version).to.equal(1);
+            expect(headerData.type).to.equal("GENERIC");
+
+            expect(headerData.metadataFormat).to.equal(1);
+            expect(headerData.metadataOffset).to.equal(51);
+            expect(headerData.metadataLength).to.equal(10);
+
+            expect(headerData.projectFormat).to.equal(1);
+            expect(headerData.projectOffset).to.equal(61);
+            expect(headerData.projectLength).to.equal(20);
+
+            expect(headerData.blobIndexFormat).to.equal(1);
+            expect(headerData.blobIndexOffset).to.equal(81);
+            expect(headerData.blobIndexLength).to.equal(30);
+
+            expect(headerData.blobsOffset).to.equal(111);
+            expect(headerData.blobsLength).to.equal(40);
+        });
+
+        it("raises an exception if the buffer is too small to contains the header", function () {
+            expect(project._loadHeader.bind(null, new Buffer(42))).to.throwException(/BufferTruncated/);
+        });
+    });
 });
 
