@@ -3,7 +3,7 @@
 var expect = require("expect.js");
 var codecs = require("../lib/codecs.js");
 
-describe ("codecs", function () {
+describe("codecs", function () {
 
     describe("JSON codec", function () {
 
@@ -15,8 +15,11 @@ describe ("codecs", function () {
 
         it("can decode data", function () {
             var data = '{"foo":"bar"}';
+            var data2 = new Buffer(data);
             var decoded = codecs.jsonDecoder(data);
+            var decoded2 = codecs.jsonDecoder(data2);
             expect(decoded).to.eql({foo: "bar"});
+            expect(decoded2).to.eql({foo: "bar"});
         });
 
     });
