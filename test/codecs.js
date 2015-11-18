@@ -10,13 +10,13 @@ describe("codecs", function () {
         it("can encode data", function () {
             var data = {foo: "bar"};
             var encoded = codecs.jsonEncoder(data);
-            expect(encoded).to.equal('{"foo":"bar"}');
+            expect(encoded.toString("utf8")).to.equal('{"foo":"bar"}');
         });
 
         it("can encode data containing unicode", function () {
             var data = {foo: "unicode¿éÉ"};
             var encoded = codecs.jsonEncoder(data);
-            expect(encoded).to.equal('{"foo":"unicode¿éÉ"}');
+            expect(encoded.toString("utf8")).to.equal('{"foo":"unicode¿éÉ"}');
         });
 
         it("can decode data", function () {
