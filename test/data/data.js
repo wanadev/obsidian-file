@@ -1,7 +1,5 @@
 "use strict";
 
-var helpers = require("../../lib/helpers.js");
-
 var data64 = "data:image/png;base64,";
 data64 += "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAACVBMVEUAAAD/AAD//";
 data64 += "/9nGWQeAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAAd0SU1FB9";
@@ -29,14 +27,8 @@ var array = [
 
 var buffer = new Buffer(array);
 
-var blob = null;
-if (global.TEST_BROWSER) {
-    blob = helpers.toBlob([array], "image/png");
-}
-
 module.exports = {
     data64: data64,
     array: array,
-    buffer: buffer,
-    blob: blob
+    buffer: buffer
 };

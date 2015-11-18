@@ -8,16 +8,55 @@ describe("WprojectFile", function () {
 
     describe("BLOB MANAGEMENT", function () {
 
-        it.skip("addBlob", function () {
-            // TODO
+        it("addBlob adds blob from a Blob or Buffer object", function () {
+            var p = new WProjectFile();
+
+            p.addBlob(data.buffer, "buffer1");
+            p.addBlob(data.buffer, "buffer2", {mime: "image/png", metadata: {foo: "bar"}});
+
+            expect(p.$data.blobs.buffer1).not.to.be(undefined);
+            expect(p.$data.blobs.buffer1.mime).to.equal("application/octet-stream");
+            expect(p.$data.blobs.buffer1.metadata).to.be.empty();
+            expect(p.$data.blobs.buffer1._buffer).to.equal(data.buffer);
+
+            expect(p.$data.blobs.buffer2).not.to.be(undefined);
+            expect(p.$data.blobs.buffer2.mime).to.equal("image/png");
+            expect(p.$data.blobs.buffer2.metadata).to.eql({foo: "bar"});
+            expect(p.$data.blobs.buffer2._buffer).to.equal(data.buffer);
         });
 
-        it.skip("addBlobFromData64Url", function () {
-            // TODO
+        it("addBlobFromData64Url creates and adds blob from a data64 URL", function () {
+            var p = new WProjectFile();
+
+            p.addBlobFromData64Url(data.data64, "buffer1");
+            p.addBlobFromData64Url(data.data64, "buffer2", {mime: "application/x-test", metadata: {foo: "bar"}});
+
+            expect(p.$data.blobs.buffer1).not.to.be(undefined);
+            expect(p.$data.blobs.buffer1.mime).to.equal("image/png");
+            expect(p.$data.blobs.buffer1.metadata).to.be.empty();
+            expect(p.$data.blobs.buffer1._buffer).to.eql(data.buffer);
+
+            expect(p.$data.blobs.buffer2).not.to.be(undefined);
+            expect(p.$data.blobs.buffer2.mime).to.equal("application/x-test");
+            expect(p.$data.blobs.buffer2.metadata).to.eql({foo: "bar"});
+            expect(p.$data.blobs.buffer2._buffer).to.eql(data.buffer);
         });
 
-        it.skip("addBlobFromString", function () {
-            // TODO
+        it("addBlobFromString creates and adds blob from a string ", function () {
+            var p = new WProjectFile();
+
+            p.addBlobFromString("Hello World", "buffer1");
+            p.addBlobFromString("Hello World è_é", "buffer2", {mime: "text/plain", metadata: {foo: "bar"}});
+
+            expect(p.$data.blobs.buffer1).not.to.be(undefined);
+            expect(p.$data.blobs.buffer1.mime).to.equal("application/octet-stream");
+            expect(p.$data.blobs.buffer1.metadata).to.be.empty();
+            expect(p.$data.blobs.buffer1._buffer.toString()).to.equal("Hello World");
+
+            expect(p.$data.blobs.buffer2).not.to.be(undefined);
+            expect(p.$data.blobs.buffer2.mime).to.equal("text/plain");
+            expect(p.$data.blobs.buffer2.metadata).to.eql({foo: "bar"});
+            expect(p.$data.blobs.buffer2._buffer.toString()).to.equal("Hello World è_é");
         });
 
 
@@ -33,14 +72,8 @@ describe("WprojectFile", function () {
             // TODO
         });
 
-        if (global.TEST_BROWSER) {
-            it.skip("getBlobUrl", function () {
-                // TODO
-            });
-        }
 
-
-        it.skip("getBlobMetadata", function () {
+        it.skip("getBlobRecord", function () {
             // TODO
         });
 
