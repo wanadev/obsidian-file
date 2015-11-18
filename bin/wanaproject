@@ -22,6 +22,32 @@ cli.parse({
     "index-format": ["I", "Format of the blob index section (0: JSON, 1: JSON+Deflate)", "n", 1],
 });
 
+
+function extract(source, dest) {
+    // TODO
+}
+
+function create(dest, metadata, project, index, files, options) {
+    var wp = new WProjectFile();
+
+    wp.type = options.type;
+
+    if (metadata) {
+        console.log("* Adding metadata from: " + metadata);
+        wp.metadata = JSON.parse(fs.readFileSync(metadata, "utf8"));
+    }
+
+    if (project) {
+        console.log("* Adding project from: " + project);
+        wp.project = JSON.parse(fs.readFileSync(project, "utf8"));
+    }
+
+    // TODO Blobs
+
+    fs.writeFileSync(dest, wp.exportAsBlob(options));
+    cli.ok("Project file writen: " + dest);
+}
+
 cli.main(function (args, opts) {
     if (!opts.extract && !opts.create) {
         cli.error("You must define one of the following options: -x -c");
@@ -63,28 +89,3 @@ cli.main(function (args, opts) {
         });
     }
 });
-
-function extract(source, dest) {
-    // TODO
-}
-
-function create(dest, metadata, project, index, files, options) {
-    var wp = new WProjectFile();
-
-    wp.type = options.type;
-
-    if (metadata) {
-        console.log("* Adding metadata from: " + metadata);
-        wp.metadata = JSON.parse(fs.readFileSync(metadata, "utf8"));
-    }
-
-    if (project) {
-        console.log("* Adding project from: " + project);
-        wp.project = JSON.parse(fs.readFileSync(project, "utf8"));
-    }
-
-    // TODO Blobs
-
-    fs.writeFileSync(dest, wp.exportAsBlob(options));
-    cli.ok("Project file writen: " + dest);
-}
