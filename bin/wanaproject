@@ -22,7 +22,6 @@ cli.parse({
     "index-format": ["I", "Format of the blob index section (0: JSON, 1: JSON+Deflate)", "n", 1],
 });
 
-
 function extract(source, dest) {
     // TODO
 }

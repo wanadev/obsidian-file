@@ -1,11 +1,11 @@
 {
-  "name": "Library and CLI tool to read and write the Wanadev Project file format",
+  "name": "wanadev-project-format",
   "version": "0.0.0",
-  "description": "Wanadev Project Format",
+  "description": "Library and CLI tool to read and write the Wanadev Project file format",
   "main": "lib/index.js",
   "private": true,
   "scripts": {
-    "test": "./node_modules/.bin/grunt test"
+    "test": "node ./node_modules/.bin/grunt test"
   },
   "repository": {
     "type": "git",
