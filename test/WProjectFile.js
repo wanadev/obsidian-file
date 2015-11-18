@@ -60,16 +60,28 @@ describe("WprojectFile", function () {
         });
 
 
-        it.skip("getBlob", function () {
-            // TODO
+        it("getBlob", function () {
+            var p = new WProjectFile();
+            p.addBlob(data.buffer, "buffer1");
+
+            expect(p.getBlob("buffer1")).to.equal(data.buffer);
+            expect(p.getBlob("foo")).to.be(null);
         });
 
-        it.skip("getBlobAsData64Url", function () {
-            // TODO
+        it("getBlobAsData64Url", function () {
+            var p = new WProjectFile();
+            p.addBlob(data.buffer, "buffer1", {mime: "image/png"});
+
+            expect(p.getBlobAsData64Url("buffer1")).to.equal(data.data64);
+            expect(p.getBlobAsData64Url("foo")).to.be("");
         });
 
-        it.skip("getBlobAsString", function () {
-            // TODO
+        it("getBlobAsString", function () {
+            var p = new WProjectFile();
+            p.addBlobFromString("Hello World", "buffer1");
+
+            expect(p.getBlobAsString("buffer1")).to.equal("Hello World");
+            expect(p.getBlobAsString("foo")).to.be("");
         });
 
 
