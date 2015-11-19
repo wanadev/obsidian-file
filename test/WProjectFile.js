@@ -408,24 +408,39 @@ describe("WprojectFile", function () {
 
         });
 
-        it.skip("destroy", function () {
-            // TODO
+        it("version is defined", function () {
+            var p = new WProjectFile();
+            expect(p.version).to.equal(1);
         });
 
-        it.skip("version", function () {
-            // TODO
+        it("type is 'GENERIC' by default", function () {
+            var p = new WProjectFile();
+            expect(p.type).to.equal("GENERIC");
         });
 
-        it.skip("type", function () {
-            // TODO
+        it("type can be set with varous strings", function () {
+            var p = new WProjectFile();
+
+            p.type = "FOOTYPE"
+            expect(p.type).to.equal("FOOTYPE");
+
+            p.type = "bartype  "
+            expect(p.type).to.equal("BARTYPE");
+
+            p.type = "xxXXxxXXxxTYPE"
+            expect(p.type).to.equal("XXXXXXXXXX");
         });
 
-        it.skip("metadata", function () {
-            // TODO
+        it("metadata is an empty object by default ", function () {
+            var p = new WProjectFile();
+            expect(p.metadata).to.be.an("object");
+            expect(p.metadata).to.be.empty();
         });
 
-        it.skip("project", function () {
-            // TODO
+        it("project is an empty array by default", function () {
+            var p = new WProjectFile();
+            expect(p.project).to.be.an("array");
+            expect(p.project).to.be.empty();
         });
 
     });
