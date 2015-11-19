@@ -309,16 +309,49 @@ describe("WprojectFile", function () {
 
         });
 
-        it.skip("_loadMetadata", function () {
-            // TODO
+        it("_loadMetadata", function () {
+            var p = new WProjectFile();
+
+            var metadata = p._loadMetadata(data.projectBuffer, 51, 108, WProjectFile.FORMAT_JSON_DEFLATE);
+
+            expect(metadata).to.eql({
+                author: "John DOE",
+                projectVersion: "1.2.0",
+                projectId: "de80a8a5-0238-41c4-89ad-56406d78a00b",
+                lastEdit: 1447942109
+            });
         });
 
-        it.skip("_loadProject", function () {
-            // TODO
+        it("_loadProject", function () {
+            var p = new WProjectFile();
+
+            var project = p._loadProject(data.projectBuffer, 159, 80, WProjectFile.FORMAT_JSON_DEFLATE);
+
+            expect(project).to.eql([
+                [
+                    {"__name__":"BaseStructure","id":"84130666-bc2d-4414-8ac4-621887f9cd7d"}
+                ],
+                []
+            ]);
         });
 
-        it.skip("_loadBlobs", function () {
-            // TODO
+        it("_loadBlobs", function () {
+            var p = new WProjectFile();
+
+            var blobs = p._loadBlobs(data.projectBuffer, 239, 94, WProjectFile.FORMAT_JSON_DEFLATE, 333, 205);
+
+            expect(blobs).to.eql({
+                "image.png": {
+                    _buffer: data.imageBuffer,
+                    mime: "image/png",
+                    metadata: {}
+                },
+                "hello.txt": {
+                    _buffer: new Buffer("Hello World!\n", "ascii"),
+                    mime: "text/plain",
+                    metadata: {}
+                }
+            });
         });
 
     });
