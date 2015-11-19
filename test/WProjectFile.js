@@ -60,7 +60,7 @@ describe("WprojectFile", function () {
         });
 
 
-        it("getBlob", function () {
+        it("getBlob returns the requested blob as Buffer", function () {
             var p = new WProjectFile();
             p.addBlob(data.buffer, "buffer1");
 
@@ -68,7 +68,7 @@ describe("WprojectFile", function () {
             expect(p.getBlob("foo")).to.be(null);
         });
 
-        it("getBlobAsData64Url", function () {
+        it("getBlobAsData64Url returns the blob as data64 URI", function () {
             var p = new WProjectFile();
             p.addBlob(data.buffer, "buffer1", {mime: "image/png"});
 
@@ -76,7 +76,7 @@ describe("WprojectFile", function () {
             expect(p.getBlobAsData64Url("foo")).to.be("");
         });
 
-        it("getBlobAsString", function () {
+        it("getBlobAsString returns the blob as string", function () {
             var p = new WProjectFile();
             p.addBlobFromString("Hello World", "buffer1");
 
@@ -85,20 +85,42 @@ describe("WprojectFile", function () {
         });
 
 
-        it.skip("getBlobRecord", function () {
-            // TODO
+        it("getBlobRecord returns inormations about a blob", function () {
+            var p = new WProjectFile();
+            p.addBlob(data.buffer, "buffer1", {mime: "image/png", metadata: {foo: "bar"}});
+
+            expect(p.getBlobRecord("buffer1")).to.eql({
+                offset: null,
+                length: 192,
+                mime: "image/png",
+                metadata: {
+                    foo: "bar"
+                }
+            });
         });
 
-        it.skip("removeBlob", function () {
-            // TODO
+        it("removeBlob can remove a blob", function () {
+            var p = new WProjectFile();
+            p.addBlobFromString("Hello World", "blob1");
+            expect(p.$data.blobs.blob1).not.to.be(undefined);
+            p.removeBlob("blob1");
+            expect(p.$data.blobs.blob1).to.be(undefined);
         });
 
-        it.skip("blobExists", function () {
-            // TODO
+        it("blobExists allows to check if a blob exists", function () {
+            var p = new WProjectFile();
+            p.addBlobFromString("Hello World", "blob1");
+
+            expect(p.blobExists("blob1")).to.be.ok();
+            expect(p.blobExists("blob2")).not.to.be.ok();
         });
 
-        it.skip("getBlobList", function () {
-            // TODO
+        it("getBlobList returns a list of all blobs", function () {
+            var p = new WProjectFile();
+            p.addBlobFromString("Hello World", "blob1");
+            p.addBlobFromString("Hello World", "blob2");
+
+            expect(p.getBlobList()).to.eql(["blob1", "blob2"]);
         });
 
     });
