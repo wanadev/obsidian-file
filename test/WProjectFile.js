@@ -211,12 +211,17 @@ describe("WprojectFile", function () {
 
         });
 
-        it.skip("exportAsBlob", function () {
-            // TODO
+        it("exportAsBlob exports the project as Buffer", function () {
+            var p = new WProjectFile();
+            var buffer = p.exportAsBlob();
+            expect(buffer instanceof Buffer).to.be.ok();
+            expect(buffer.length).to.be.greaterThan(51);
         });
 
-        it.skip("exportAsData64Url", function () {
-            // TODO
+        it("exportAsData64Url exports the project as Data64 URI", function () {
+            var p = new WProjectFile();
+            var data64 = p.exportAsData64Url();
+            expect(data64.indexOf("data:application/x-wanadev-project;base64")).to.equal(0);
         });
 
     });
