@@ -255,12 +255,46 @@ describe("WprojectFile", function () {
 
     describe("LOAD", function () {
 
-        it.skip("_loadProjectFromBlob", function () {
-            // TODO
+        it("_loadBlob can load a project from a Buffer", function () {
+            var p = new WProjectFile();
+            p._loadBlob(data.projectBuffer);
+
+            expect(p.metadata).to.eql({
+                author: "John DOE",
+                projectVersion: "1.2.0",
+                projectId: "de80a8a5-0238-41c4-89ad-56406d78a00b",
+                lastEdit: 1447942109
+            });
+
+            expect(p.project).to.eql([
+                [
+                    {"__name__":"BaseStructure","id":"84130666-bc2d-4414-8ac4-621887f9cd7d"}
+                ],
+                []
+            ]);
+
+            expect(p.getBlob("image.png")).to.eql(data.imageBuffer);
         });
 
-        it.skip("_loadProjectFromData64Url", function () {
-            // TODO
+        it("_loadData64Url can load a project from a data64 URI", function () {
+            var p = new WProjectFile();
+            p._loadData64Url(data.projectData64);
+
+            expect(p.metadata).to.eql({
+                author: "John DOE",
+                projectVersion: "1.2.0",
+                projectId: "de80a8a5-0238-41c4-89ad-56406d78a00b",
+                lastEdit: 1447942109
+            });
+
+            expect(p.project).to.eql([
+                [
+                    {"__name__":"BaseStructure","id":"84130666-bc2d-4414-8ac4-621887f9cd7d"}
+                ],
+                []
+            ]);
+
+            expect(p.getBlob("image.png")).to.eql(data.imageBuffer);
         });
 
         describe("_loadHeader", function () {
