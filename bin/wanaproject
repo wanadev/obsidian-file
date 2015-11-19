@@ -102,7 +102,7 @@ cli.main(function (args, opts) {
                 metadata = args[i];
             } else if (!project && args[i].indexOf("__project__.json") > -1) {
                 project = args[i];
-            } if (!index && args[i].indexOf("__blobindex__.json") > -1) {
+            } else if (!index && args[i].indexOf("__blobindex__.json") > -1) {
                 index = args[i];
             } else {
                 files.push(args[i]);

@@ -12,35 +12,35 @@ describe("WprojectFile", function () {
         it("addBlob adds blob from a Blob or Buffer object", function () {
             var p = new WProjectFile();
 
-            p.addBlob(data.buffer, "buffer1");
-            p.addBlob(data.buffer, "buffer2", {mime: "image/png", metadata: {foo: "bar"}});
+            p.addBlob(data.imageBuffer, "buffer1");
+            p.addBlob(data.imageBuffer, "buffer2", {mime: "image/png", metadata: {foo: "bar"}});
 
             expect(p.$data.blobs.buffer1).not.to.be(undefined);
             expect(p.$data.blobs.buffer1.mime).to.equal("application/octet-stream");
             expect(p.$data.blobs.buffer1.metadata).to.be.empty();
-            expect(p.$data.blobs.buffer1._buffer).to.equal(data.buffer);
+            expect(p.$data.blobs.buffer1._buffer).to.equal(data.imageBuffer);
 
             expect(p.$data.blobs.buffer2).not.to.be(undefined);
             expect(p.$data.blobs.buffer2.mime).to.equal("image/png");
             expect(p.$data.blobs.buffer2.metadata).to.eql({foo: "bar"});
-            expect(p.$data.blobs.buffer2._buffer).to.equal(data.buffer);
+            expect(p.$data.blobs.buffer2._buffer).to.equal(data.imageBuffer);
         });
 
         it("addBlobFromData64Url creates and adds blob from a data64 URL", function () {
             var p = new WProjectFile();
 
-            p.addBlobFromData64Url(data.data64, "buffer1");
-            p.addBlobFromData64Url(data.data64, "buffer2", {mime: "application/x-test", metadata: {foo: "bar"}});
+            p.addBlobFromData64Url(data.imageData64, "buffer1");
+            p.addBlobFromData64Url(data.imageData64, "buffer2", {mime: "application/x-test", metadata: {foo: "bar"}});
 
             expect(p.$data.blobs.buffer1).not.to.be(undefined);
             expect(p.$data.blobs.buffer1.mime).to.equal("image/png");
             expect(p.$data.blobs.buffer1.metadata).to.be.empty();
-            expect(p.$data.blobs.buffer1._buffer).to.eql(data.buffer);
+            expect(p.$data.blobs.buffer1._buffer).to.eql(data.imageBuffer);
 
             expect(p.$data.blobs.buffer2).not.to.be(undefined);
             expect(p.$data.blobs.buffer2.mime).to.equal("application/x-test");
             expect(p.$data.blobs.buffer2.metadata).to.eql({foo: "bar"});
-            expect(p.$data.blobs.buffer2._buffer).to.eql(data.buffer);
+            expect(p.$data.blobs.buffer2._buffer).to.eql(data.imageBuffer);
         });
 
         it("addBlobFromString creates and adds blob from a string ", function () {
@@ -63,17 +63,17 @@ describe("WprojectFile", function () {
 
         it("getBlob returns the requested blob as Buffer", function () {
             var p = new WProjectFile();
-            p.addBlob(data.buffer, "buffer1");
+            p.addBlob(data.imageBuffer, "buffer1");
 
-            expect(p.getBlob("buffer1")).to.equal(data.buffer);
+            expect(p.getBlob("buffer1")).to.equal(data.imageBuffer);
             expect(p.getBlob("foo")).to.be(null);
         });
 
         it("getBlobAsData64Url returns the blob as data64 URI", function () {
             var p = new WProjectFile();
-            p.addBlob(data.buffer, "buffer1", {mime: "image/png"});
+            p.addBlob(data.imageBuffer, "buffer1", {mime: "image/png"});
 
-            expect(p.getBlobAsData64Url("buffer1")).to.equal(data.data64);
+            expect(p.getBlobAsData64Url("buffer1")).to.equal(data.imageData64);
             expect(p.getBlobAsData64Url("foo")).to.be("");
         });
 
@@ -88,7 +88,7 @@ describe("WprojectFile", function () {
 
         it("getBlobRecord returns inormations about a blob", function () {
             var p = new WProjectFile();
-            p.addBlob(data.buffer, "buffer1", {mime: "image/png", metadata: {foo: "bar"}});
+            p.addBlob(data.imageBuffer, "buffer1", {mime: "image/png", metadata: {foo: "bar"}});
 
             expect(p.getBlobRecord("buffer1")).to.eql({
                 offset: null,
@@ -214,7 +214,7 @@ describe("WprojectFile", function () {
 
         it("_exportBlobs exports blobInex and blobs as Buffer", function () {
             var p = new WProjectFile();
-            p.addBlob(data.buffer, "image.png", {mime: "image/png"}); // 192 B
+            p.addBlob(data.imageBuffer, "image.png", {mime: "image/png"}); // 192 B
             p.addBlobFromString("Hello!", "hello.txt", {mime: "text/plain"}); // 6 B
 
             var blobs = p._exportBlobs(WProjectFile.FORMAT_JSON_DEFLATE);
@@ -307,6 +307,18 @@ describe("WprojectFile", function () {
                 expect(project._loadHeader.bind(null, new Buffer(42))).to.throwException(/BufferTruncated/);
             });
 
+        });
+
+        it.skip("_loadMetadata", function () {
+            // TODO
+        });
+
+        it.skip("_loadProject", function () {
+            // TODO
+        });
+
+        it.skip("_loadBlobs", function () {
+            // TODO
         });
 
     });
