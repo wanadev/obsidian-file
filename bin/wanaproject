@@ -3,7 +3,11 @@
 "use strict";
 
 var fs = require("fs");
+var path = require("path");
+
 var cli = require("cli");
+var mime = require("mime");
+
 var WProjectFile = require("../lib").WProjectFile;
 
 cli.enable("status");
@@ -22,6 +26,16 @@ cli.parse({
     "index-format": ["I", "Format of the blob index section (0: JSON, 1: JSON+Deflate)", "n", 1],
 });
 
+function isFile(path) {
+    try {
+        var stat = fs.statSync(path);
+        return stat.isFile();
+    }
+    catch (e) {
+        return false;
+    }
+}
+
 function extract(source, dest) {
     // TODO
 }
@@ -32,16 +46,31 @@ function create(dest, metadata, project, index, files, options) {
     wp.type = options.type;
 
     if (metadata) {
-        console.log("* Adding metadata from: " + metadata);
+        console.log("* Adding metadata from '" + metadata + "'");
         wp.metadata = JSON.parse(fs.readFileSync(metadata, "utf8"));
     }
 
     if (project) {
-        console.log("* Adding project from: " + project);
+        console.log("* Adding project from '" + project + "'");
         wp.project = JSON.parse(fs.readFileSync(project, "utf8"));
     }
 
-    // TODO Blobs
+    var blobIndex = {};
+    if (index) {
+        blobIndex = JSON.parse(fs.readFileSync(index, "utf8"));
+    }
+    for (var i = 0 ; i < files.length ; i++) {
+        if (!isFile(files[i])) {
+            continue;
+        }
+        var blobId = path.basename(files[i]);
+        var record = blobIndex[blobId] || {};
+        if (!record.mime) {
+            record.mime = mime.lookup(files[i]);
+        }
+        console.log("* Adding blob from '" + files[i] + "' as " + record.mime);
+        wp.addBlob(fs.readFileSync(files[i]), blobId, record);
+    }
 
     fs.writeFileSync(dest, wp.exportAsBlob(options));
     cli.ok("Project file writen: " + dest);
@@ -69,11 +98,11 @@ cli.main(function (args, opts) {
         var files = [];
 
         for (var i = 0 ; i < args.length ; i++) {
-            if (!metadata && args[i].indexOf("__metadata__.json" > -1)) {
+            if (!metadata && args[i].indexOf("__metadata__.json") > -1) {
                 metadata = args[i];
-            } else if (!project && args[i].indexOf("__project__.json" > -1)) {
+            } else if (!project && args[i].indexOf("__project__.json") > -1) {
                 project = args[i];
-            } if (!index && args[i].indexOf("__blobindex__.json" > -1)) {
+            } if (!index && args[i].indexOf("__blobindex__.json") > -1) {
                 index = args[i];
             } else {
                 files.push(args[i]);
