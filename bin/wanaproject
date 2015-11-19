@@ -7,6 +7,7 @@ var path = require("path");
 
 var cli = require("cli");
 var mime = require("mime");
+var mkdirp = require("mkdirp");
 
 var WProjectFile = require("../lib").WProjectFile;
 
@@ -36,8 +37,40 @@ function isFile(path) {
     }
 }
 
+function isDir(path) {
+    try {
+        var stat = fs.statSync(path);
+        return stat.isDirectory();
+    }
+    catch (e) {
+        return false;
+    }
+}
+
 function extract(source, dest) {
-    // TODO
+    if (!isDir(dest)) {
+        console.log("* Creating the destination folder '" + dest + "'");
+        mkdirp.sync(dest);
+    }
+
+    var wp = new WProjectFile(fs.readFileSync(source));
+
+    console.log("* Writing metadata to '" + path.join(dest, "__metadata__.json") + "'");
+    fs.writeFileSync(path.join(dest, "__metadata__.json"), JSON.stringify(wp.metadata));
+
+    console.log("* Writing project to '" + path.join(dest, "__project__.json") + "'");
+    fs.writeFileSync(path.join(dest, "__project__.json"), JSON.stringify(wp.project));
+
+    var records = {};
+    var blobs = wp.getBlobList();
+    for (var i = 0 ; i < blobs.length ; i++) {
+        records[blobs[i]] = wp.getBlobRecord(blobs[i]);
+        console.log("* Writing blob '" + path.join(dest, blobs[i]) + "'");
+        fs.writeFileSync(path.join(dest, blobs[i]), wp.getBlob(blobs[i]));
+    }
+
+    console.log("* Writing blobIndex to '" + path.join(dest, "__blobindex__.json") + "'");
+    fs.writeFileSync(path.join(dest, "__blobindex__.json"), JSON.stringify(records));
 }
 
 function create(dest, metadata, project, index, files, options) {
