@@ -1,7 +1,8 @@
 "use strict";
 
 var expect = require("expect.js");
-var WProjectFile = require("../lib/WProjectFile");
+var WProjectFile = require("../lib/WProjectFile.js");
+var codecs = require("../lib/codecs.js");
 var data = require("./data/data.js");
 
 describe("WprojectFile", function () {
@@ -209,6 +210,32 @@ describe("WprojectFile", function () {
                 expect(header.readUInt32BE(47)).to.equal(40);
             });
 
+        });
+
+        it("_exportBlobs exports blobInex and blobs as Buffer", function () {
+            var p = new WProjectFile();
+            p.addBlob(data.buffer, "image.png", {mime: "image/png"}); // 192 B
+            p.addBlobFromString("Hello!", "hello.txt", {mime: "text/plain"}); // 6 B
+
+            var blobs = p._exportBlobs(WProjectFile.FORMAT_JSON_DEFLATE);
+            var index = codecs.jsonDeflateDecoder(blobs[0]);
+
+            expect(index).to.eql({
+                "image.png": {
+                    offset: 0,
+                    length: 192,
+                    mime: "image/png",
+                    metadata: {}
+                },
+                "hello.txt": {
+                    offset: 192,
+                    length: 6,
+                    mime: "text/plain",
+                    metadata: {}
+                }
+            });
+
+            expect(blobs[1].length).to.equal(192 + 6);
         });
 
         it("exportAsBlob exports the project as Buffer", function () {
