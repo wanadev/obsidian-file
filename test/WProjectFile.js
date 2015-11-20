@@ -414,16 +414,51 @@ describe("WprojectFile", function () {
 
         describe("__init__", function () {
 
-            it.skip("can create a new empty project", function () {
-                // TODO
+            it("can create a new empty project", function () {
+                var p = new WProjectFile();
+                expect(p.blobList).to.be.empty();
+                expect(p.project).to.be.empty();
+                expect(p.metadata).to.be.empty();
             });
 
-            it.skip("can create a project from a blob", function () {
-                // TODO
+            it("can create a project from a blob", function () {
+                var p = new WProjectFile(data.projectBuffer);
+
+                expect(p.metadata).to.eql({
+                    author: "John DOE",
+                    projectVersion: "1.2.0",
+                    projectId: "de80a8a5-0238-41c4-89ad-56406d78a00b",
+                    lastEdit: 1447942109
+                });
+
+                expect(p.project).to.eql([
+                    [
+                        {"__name__":"BaseStructure","id":"84130666-bc2d-4414-8ac4-621887f9cd7d"}
+                    ],
+                    []
+                ]);
+
+                expect(p.getBlob("image.png")).to.eql(data.imageBuffer);
             });
 
-            it.skip("can create a project from a data64 URL", function () {
-                // TODO
+            it("can create a project from a data64 URL", function () {
+                var p = new WProjectFile(data.projectData64);
+
+                expect(p.metadata).to.eql({
+                    author: "John DOE",
+                    projectVersion: "1.2.0",
+                    projectId: "de80a8a5-0238-41c4-89ad-56406d78a00b",
+                    lastEdit: 1447942109
+                });
+
+                expect(p.project).to.eql([
+                    [
+                        {"__name__":"BaseStructure","id":"84130666-bc2d-4414-8ac4-621887f9cd7d"}
+                    ],
+                    []
+                ]);
+
+                expect(p.getBlob("image.png")).to.eql(data.imageBuffer);
             });
 
         });

@@ -83,7 +83,7 @@ function detail(source) {
     console.log("\nBLOBS\n--------------------------------------");
     var blobs = wp.getBlobList();
     for (var i = 0 ; i < blobs.length ; i++) {
-        console.log(blobs[i] + " [" + wp.getBlobRecord(blobs[i]).mime + "] (" + wp.getBlob(blobs[i]).length + " B)")
+        console.log(blobs[i] + " [" + wp.getBlobRecord(blobs[i]).mime + "] (" + wp.getBlob(blobs[i]).length + " B)");
     }
 }
 
