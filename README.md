@@ -5,6 +5,10 @@ Library and CLI tool to read and write the Wanadev Project file format.
 
 ## CLI
 
+### Get informations about a project file
+
+    wanaproject -d project.wprj
+
 ### Extract a project
 
     wanaproject -xf project.wprj [outputdir/]

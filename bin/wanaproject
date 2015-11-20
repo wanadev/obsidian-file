@@ -16,6 +16,7 @@ cli.enable("status");
 cli.parse({
     extract: ["x", "Extract the sections of the given project"],
     create: ["c", "Create a project file from the given files"],
+    detail: ["d", "Get informations about the given project file"],
     file: ["f", "The project file to read or write", "file", null],
 
     type: ["t", "Project type", "string", "GENERIC"],
@@ -44,6 +45,45 @@ function isDir(path) {
     }
     catch (e) {
         return false;
+    }
+}
+
+function detail(source) {
+    var wpBuffer = fs.readFileSync(source);
+
+    if (!WProjectFile.isWanadevProjectFile(wpBuffer)) {
+        cli.error("The given file is not a valid Wanadev Project File.");
+        process.exit(1);
+    }
+
+    var wp;
+    try {
+         wp = new WProjectFile(wpBuffer);
+    } catch (error) {
+        cli.error("The given file is not a valid Wanadev Project File.");
+        process.exit(1);
+    }
+
+    var header = wp._loadHeader(wpBuffer);
+
+    console.log("FILE:    " + source);
+    console.log("LENGTH:  " + wpBuffer.length + " B");
+    console.log("VERSION: " + header.version);
+    console.log("TYPE:    " + header.type);
+
+    console.log("\nMETADATA\n--------------------------------------");
+    for (var k in wp.metadata) {
+        console.log(k + ": " + wp.metadata[k]);
+    }
+
+    var project = JSON.stringify(wp.project, null, 2);
+    console.log("\nPROJECT" + ((project.length > 500) ? " (excerpt)" : "") + "\n--------------------------------------");
+    console.log(project.substring(0, 500));
+
+    console.log("\nBLOBS\n--------------------------------------");
+    var blobs = wp.getBlobList();
+    for (var i = 0 ; i < blobs.length ; i++) {
+        console.log(blobs[i] + " [" + wp.getBlobRecord(blobs[i]).mime + "] (" + wp.getBlob(blobs[i]).length + " B)")
     }
 }
 
@@ -123,10 +163,20 @@ function create(dest, metadata, project, index, files, options) {
 }
 
 cli.main(function (args, opts) {
-    if (!opts.extract && !opts.create) {
-        cli.error("You must define one of the following options: -x -c");
+    if (!opts.extract && !opts.create && !opts.detail) {
+        cli.error("You must define one of the following options: -x -c -d");
         console.log("Try 'wanaproject -h' to get more informations");
         process.exit(1);
+    }
+
+    if (opts.detail) {
+        if (!opts.file && args.length !== 1) {
+            cli.error("You must provide a file to get details");
+            console.log("Try 'wanaproject -h' to get more informations");
+            process.exit(1);
+        }
+        detail(opts.file || args[0]);
+        return;
     }
 
     if (!opts.file) {
