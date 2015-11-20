@@ -7,6 +7,26 @@ var data = require("./data/data.js");
 
 describe("WprojectFile", function () {
 
+    describe("isWanadevProjectFile", function () {
+
+        it("checks that the buffer has the right magic", function () {
+            var buff = new Buffer(data.projectBuffer.length);
+            data.projectBuffer.copy(buff);
+            buff[0] = 0x20;
+
+            expect(WProjectFile.isWanadevProjectFile(buff)).not.to.be.ok();
+        });
+
+        it("checks that the buffer size is coherent with values found in the header", function () {
+            var buff = new Buffer(data.projectBuffer.length-1);
+            data.projectBuffer.copy(buff);
+
+            expect(WProjectFile.isWanadevProjectFile(buff)).not.to.be.ok();
+            expect(WProjectFile.isWanadevProjectFile(data.projectBuffer)).to.be.ok();
+        });
+
+    });
+
     describe("BLOB MANAGEMENT", function () {
 
         it("addBlob adds blob from a Blob or Buffer object", function () {

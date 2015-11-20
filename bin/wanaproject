@@ -9,7 +9,7 @@ var cli = require("cli");
 var mime = require("mime");
 var mkdirp = require("mkdirp");
 
-var WProjectFile = require("../lib").WProjectFile;
+var WProjectFile = require("../lib");
 
 cli.enable("status");
 
@@ -48,24 +48,37 @@ function isDir(path) {
 }
 
 function extract(source, dest) {
+    var wpBuffer = fs.readFileSync(source);
+
+    if (!WProjectFile.isWanadevProjectFile(wpBuffer)) {
+        cli.error("The given file is not a valid Wanadev Project File.");
+        process.exit(1);
+    }
+
     if (!isDir(dest)) {
         console.log("* Creating the destination folder '" + dest + "'");
         mkdirp.sync(dest);
     }
 
-    var wp = new WProjectFile(fs.readFileSync(source));
+    var wp;
+    try {
+         wp = new WProjectFile(wpBuffer);
+    } catch (error) {
+        cli.error("The given file is not a valid Wanadev Project File.");
+        process.exit(1);
+    }
 
-    console.log("* Writing metadata to '" + path.join(dest, "__metadata__.json") + "'");
+    console.log("* Extracting metadata to '" + path.join(dest, "__metadata__.json") + "'");
     fs.writeFileSync(path.join(dest, "__metadata__.json"), JSON.stringify(wp.metadata));
 
-    console.log("* Writing project to '" + path.join(dest, "__project__.json") + "'");
+    console.log("* Extracting project to '" + path.join(dest, "__project__.json") + "'");
     fs.writeFileSync(path.join(dest, "__project__.json"), JSON.stringify(wp.project));
 
     var records = {};
     var blobs = wp.getBlobList();
     for (var i = 0 ; i < blobs.length ; i++) {
         records[blobs[i]] = wp.getBlobRecord(blobs[i]);
-        console.log("* Writing blob '" + path.join(dest, blobs[i]) + "'");
+        console.log("* Extracting blob '" + path.join(dest, blobs[i]) + "'");
         fs.writeFileSync(path.join(dest, blobs[i]), wp.getBlob(blobs[i]));
     }
 
