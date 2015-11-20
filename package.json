@@ -1,6 +1,6 @@
 {
   "name": "wanadev-project-format",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Library and CLI tool to read and write the Wanadev Project file format",
   "main": "lib/index.js",
   "private": true,
