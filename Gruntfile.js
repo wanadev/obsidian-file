@@ -8,6 +8,11 @@ module.exports = function (grunt) {
                 files: {
                     "test/browser/browser.generated.js": ["test/browser/browser.js"]
                 }
+            },
+            options: {
+                browserifyOptions: {
+                    debug: true
+                }
             }
         },
 
