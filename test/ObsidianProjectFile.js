@@ -7,22 +7,22 @@ var data = require("./data/data.js");
 
 describe("WprojectFile", function () {
 
-    describe("isWanadevProjectFile", function () {
+    describe("isObsidianProjectFile", function () {
 
         it("checks that the buffer has the right magic", function () {
             var buff = new Buffer(data.projectBuffer.length);
             data.projectBuffer.copy(buff);
             buff[0] = 0x20;
 
-            expect(ObsidianProjectFile.isWanadevProjectFile(buff)).not.to.be.ok();
+            expect(ObsidianProjectFile.isObsidianProjectFile(buff)).not.to.be.ok();
         });
 
         it("checks that the buffer size is coherent with values found in the header", function () {
             var buff = new Buffer(data.projectBuffer.length-1);
             data.projectBuffer.copy(buff);
 
-            expect(ObsidianProjectFile.isWanadevProjectFile(buff)).not.to.be.ok();
-            expect(ObsidianProjectFile.isWanadevProjectFile(data.projectBuffer)).to.be.ok();
+            expect(ObsidianProjectFile.isObsidianProjectFile(buff)).not.to.be.ok();
+            expect(ObsidianProjectFile.isObsidianProjectFile(data.projectBuffer)).to.be.ok();
         });
 
     });
