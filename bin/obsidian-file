@@ -9,7 +9,7 @@ var cli = require("cli");
 var mime = require("mime");
 var mkdirp = require("mkdirp");
 
-var WProjectFile = require("../lib");
+var ObsidianProjectFile = require("../lib");
 
 cli.enable("status");
 
@@ -49,25 +49,25 @@ function isDir(path) {
 }
 
 function detail(source) {
-    var wpBuffer = fs.readFileSync(source);
+    var opBuffer = fs.readFileSync(source);
 
-    if (!WProjectFile.isWanadevProjectFile(wpBuffer)) {
-        cli.error("The given file is not a valid Wanadev Project File.");
+    if (!ObsidianProjectFile.isObsidianProjectFile(opBuffer)) {
+        cli.error("The given file is not a valid Obsidian Project File.");
         process.exit(1);
     }
 
     var wp;
     try {
-         wp = new WProjectFile(wpBuffer);
+         wp = new ObsidianProjectFile(opBuffer);
     } catch (error) {
-        cli.error("The given file is not a valid Wanadev Project File.");
+        cli.error("The given file is not a valid Obsidian Project File.");
         process.exit(1);
     }
 
-    var header = wp._loadHeader(wpBuffer);
+    var header = wp._loadHeader(opBuffer);
 
     console.log("FILE:    " + source);
-    console.log("LENGTH:  " + wpBuffer.length + " B");
+    console.log("LENGTH:  " + opBuffer.length + " B");
     console.log("VERSION: " + header.version);
     console.log("TYPE:    " + header.type);
 
@@ -88,10 +88,10 @@ function detail(source) {
 }
 
 function extract(source, dest) {
-    var wpBuffer = fs.readFileSync(source);
+    var opBuffer = fs.readFileSync(source);
 
-    if (!WProjectFile.isWanadevProjectFile(wpBuffer)) {
-        cli.error("The given file is not a valid Wanadev Project File.");
+    if (!ObsidianProjectFile.isObsidianProjectFile(opBuffer)) {
+        cli.error("The given file is not a valid Obsidian Project File.");
         process.exit(1);
     }
 
@@ -102,9 +102,9 @@ function extract(source, dest) {
 
     var wp;
     try {
-         wp = new WProjectFile(wpBuffer);
+         wp = new ObsidianProjectFile(opBuffer);
     } catch (error) {
-        cli.error("The given file is not a valid Wanadev Project File.");
+        cli.error("The given file is not a valid Obsidian Project File.");
         process.exit(1);
     }
 
@@ -127,7 +127,7 @@ function extract(source, dest) {
 }
 
 function create(dest, metadata, project, index, files, options) {
-    var wp = new WProjectFile();
+    var wp = new ObsidianProjectFile();
 
     wp.type = options.type;
 

@@ -40,7 +40,7 @@ describe("codecs", function () {
         });
 
         it("can encode data containing unicode", function () {
-            var data = {foo: "unicode¿éÉ"};;
+            var data = {foo: "unicode¿éÉ"};
             var encoded = codecs.jsonDeflateEncoder(data);
             expect(encoded.length).to.be.greaterThan(0);
             expect(encoded).not.to.equal('{"foo":"unicode¿éÉ"}');

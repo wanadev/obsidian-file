@@ -1,7 +1,7 @@
 "use strict";
 
 var expect = require("expect.js");
-var WProjectFile = require("../lib/WProjectFile.js");
+var ObsidianProjectFile = require("../lib/ObsidianProjectFile.js");
 var codecs = require("../lib/codecs.js");
 var data = require("./data/data.js");
 
@@ -14,15 +14,15 @@ describe("WprojectFile", function () {
             data.projectBuffer.copy(buff);
             buff[0] = 0x20;
 
-            expect(WProjectFile.isWanadevProjectFile(buff)).not.to.be.ok();
+            expect(ObsidianProjectFile.isWanadevProjectFile(buff)).not.to.be.ok();
         });
 
         it("checks that the buffer size is coherent with values found in the header", function () {
             var buff = new Buffer(data.projectBuffer.length-1);
             data.projectBuffer.copy(buff);
 
-            expect(WProjectFile.isWanadevProjectFile(buff)).not.to.be.ok();
-            expect(WProjectFile.isWanadevProjectFile(data.projectBuffer)).to.be.ok();
+            expect(ObsidianProjectFile.isWanadevProjectFile(buff)).not.to.be.ok();
+            expect(ObsidianProjectFile.isWanadevProjectFile(data.projectBuffer)).to.be.ok();
         });
 
     });
@@ -30,7 +30,7 @@ describe("WprojectFile", function () {
     describe("BLOB MANAGEMENT", function () {
 
         it("addBlob adds blob from a Blob or Buffer object", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
 
             p.addBlob(data.imageBuffer, "buffer1");
             p.addBlob(data.imageBuffer, "buffer2", {mime: "image/png", metadata: {foo: "bar"}});
@@ -47,7 +47,7 @@ describe("WprojectFile", function () {
         });
 
         it("addBlobFromData64Url creates and adds blob from a data64 URL", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
 
             p.addBlobFromData64Url(data.imageData64, "buffer1");
             p.addBlobFromData64Url(data.imageData64, "buffer2", {mime: "application/x-test", metadata: {foo: "bar"}});
@@ -64,7 +64,7 @@ describe("WprojectFile", function () {
         });
 
         it("addBlobFromString creates and adds blob from a string ", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
 
             p.addBlobFromString("Hello World", "buffer1");
             p.addBlobFromString("Hello World è_é", "buffer2", {mime: "text/plain", metadata: {foo: "bar"}});
@@ -82,7 +82,7 @@ describe("WprojectFile", function () {
 
 
         it("getBlob returns the requested blob as Buffer", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             p.addBlob(data.imageBuffer, "buffer1");
 
             expect(p.getBlob("buffer1")).to.equal(data.imageBuffer);
@@ -90,7 +90,7 @@ describe("WprojectFile", function () {
         });
 
         it("getBlobAsData64Url returns the blob as data64 URI", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             p.addBlob(data.imageBuffer, "buffer1", {mime: "image/png"});
 
             expect(p.getBlobAsData64Url("buffer1")).to.equal(data.imageData64);
@@ -98,7 +98,7 @@ describe("WprojectFile", function () {
         });
 
         it("getBlobAsString returns the blob as string", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             p.addBlobFromString("Hello World", "buffer1");
 
             expect(p.getBlobAsString("buffer1")).to.equal("Hello World");
@@ -107,7 +107,7 @@ describe("WprojectFile", function () {
 
 
         it("getBlobRecord returns inormations about a blob", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             p.addBlob(data.imageBuffer, "buffer1", {mime: "image/png", metadata: {foo: "bar"}});
 
             expect(p.getBlobRecord("buffer1")).to.eql({
@@ -121,7 +121,7 @@ describe("WprojectFile", function () {
         });
 
         it("removeBlob can remove a blob", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             p.addBlobFromString("Hello World", "blob1");
             expect(p.$data.blobs.blob1).not.to.be(undefined);
             p.removeBlob("blob1");
@@ -129,7 +129,7 @@ describe("WprojectFile", function () {
         });
 
         it("blobExists allows to check if a blob exists", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             p.addBlobFromString("Hello World", "blob1");
 
             expect(p.blobExists("blob1")).to.be.ok();
@@ -137,7 +137,7 @@ describe("WprojectFile", function () {
         });
 
         it("getBlobList returns a list of all blobs", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             p.addBlobFromString("Hello World", "blob1");
             p.addBlobFromString("Hello World", "blob2");
 
@@ -154,13 +154,13 @@ describe("WprojectFile", function () {
             var header = null;
 
             before(function () {
-                project = new WProjectFile();
+                project = new ObsidianProjectFile();
                 header = project._exportHeader({
-                    metadataFormat: WProjectFile.FORMAT_JSON_DEFLATE,
+                    metadataFormat: ObsidianProjectFile.FORMAT_JSON_DEFLATE,
                     metadataLength: 10,
-                    projectFormat: WProjectFile.FORMAT_JSON_DEFLATE,
+                    projectFormat: ObsidianProjectFile.FORMAT_JSON_DEFLATE,
                     projectLength: 20,
-                    blobIndexFormat: WProjectFile.FORMAT_JSON_DEFLATE,
+                    blobIndexFormat: ObsidianProjectFile.FORMAT_JSON_DEFLATE,
                     blobIndexLength: 30,
                     blobsLength: 40
                 });
@@ -233,11 +233,11 @@ describe("WprojectFile", function () {
         });
 
         it("_exportBlobs exports blobInex and blobs as Buffer", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             p.addBlob(data.imageBuffer, "image.png", {mime: "image/png"}); // 192 B
             p.addBlobFromString("Hello!", "hello.txt", {mime: "text/plain"}); // 6 B
 
-            var blobs = p._exportBlobs(WProjectFile.FORMAT_JSON_DEFLATE);
+            var blobs = p._exportBlobs(ObsidianProjectFile.FORMAT_JSON_DEFLATE);
             var index = codecs.jsonDeflateDecoder(blobs[0]);
 
             expect(index).to.eql({
@@ -259,16 +259,16 @@ describe("WprojectFile", function () {
         });
 
         it("exportAsBlob exports the project as Buffer", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             var buffer = p.exportAsBlob();
             expect(buffer instanceof Buffer).to.be.ok();
             expect(buffer.length).to.be.greaterThan(51);
         });
 
         it("exportAsData64Url exports the project as Data64 URI", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             var data64 = p.exportAsData64Url();
-            expect(data64.indexOf("data:application/x-wanadev-project;base64")).to.equal(0);
+            expect(data64.indexOf("data:application/x-obsidian-project;base64")).to.equal(0);
         });
 
     });
@@ -276,7 +276,7 @@ describe("WprojectFile", function () {
     describe("LOAD", function () {
 
         it("_loadBlob can load a project from a Buffer", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             p._loadBlob(data.projectBuffer);
 
             expect(p.metadata).to.eql({
@@ -297,7 +297,7 @@ describe("WprojectFile", function () {
         });
 
         it("_loadData64Url can load a project from a data64 URI", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             p._loadData64Url(data.projectData64);
 
             expect(p.metadata).to.eql({
@@ -331,7 +331,7 @@ describe("WprojectFile", function () {
             ]);
 
             before(function () {
-                project = new WProjectFile();
+                project = new ObsidianProjectFile();
             });
 
             it("can extract all fields of the header", function () {
@@ -364,9 +364,9 @@ describe("WprojectFile", function () {
         });
 
         it("_loadMetadata", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
 
-            var metadata = p._loadMetadata(data.projectBuffer, 51, 108, WProjectFile.FORMAT_JSON_DEFLATE);
+            var metadata = p._loadMetadata(data.projectBuffer, 51, 108, ObsidianProjectFile.FORMAT_JSON_DEFLATE);
 
             expect(metadata).to.eql({
                 author: "John DOE",
@@ -377,9 +377,9 @@ describe("WprojectFile", function () {
         });
 
         it("_loadProject", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
 
-            var project = p._loadProject(data.projectBuffer, 159, 80, WProjectFile.FORMAT_JSON_DEFLATE);
+            var project = p._loadProject(data.projectBuffer, 159, 80, ObsidianProjectFile.FORMAT_JSON_DEFLATE);
 
             expect(project).to.eql([
                 [
@@ -390,9 +390,9 @@ describe("WprojectFile", function () {
         });
 
         it("_loadBlobs", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
 
-            var blobs = p._loadBlobs(data.projectBuffer, 239, 94, WProjectFile.FORMAT_JSON_DEFLATE, 333, 205);
+            var blobs = p._loadBlobs(data.projectBuffer, 239, 94, ObsidianProjectFile.FORMAT_JSON_DEFLATE, 333, 205);
 
             expect(blobs).to.eql({
                 "image.png": {
@@ -415,14 +415,14 @@ describe("WprojectFile", function () {
         describe("__init__", function () {
 
             it("can create a new empty project", function () {
-                var p = new WProjectFile();
+                var p = new ObsidianProjectFile();
                 expect(p.blobList).to.be.empty();
                 expect(p.project).to.be.empty();
                 expect(p.metadata).to.be.empty();
             });
 
             it("can create a project from a blob", function () {
-                var p = new WProjectFile(data.projectBuffer);
+                var p = new ObsidianProjectFile(data.projectBuffer);
 
                 expect(p.metadata).to.eql({
                     author: "John DOE",
@@ -442,7 +442,7 @@ describe("WprojectFile", function () {
             });
 
             it("can create a project from a data64 URL", function () {
-                var p = new WProjectFile(data.projectData64);
+                var p = new ObsidianProjectFile(data.projectData64);
 
                 expect(p.metadata).to.eql({
                     author: "John DOE",
@@ -464,17 +464,17 @@ describe("WprojectFile", function () {
         });
 
         it("version is defined", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             expect(p.version).to.equal(1);
         });
 
         it("type is 'GENERIC' by default", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             expect(p.type).to.equal("GENERIC");
         });
 
         it("type can be set with varous strings", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
 
             p.type = "FOOTYPE"
             expect(p.type).to.equal("FOOTYPE");
@@ -487,13 +487,13 @@ describe("WprojectFile", function () {
         });
 
         it("metadata is an empty object by default ", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             expect(p.metadata).to.be.an("object");
             expect(p.metadata).to.be.empty();
         });
 
         it("project is an empty array by default", function () {
-            var p = new WProjectFile();
+            var p = new ObsidianProjectFile();
             expect(p.project).to.be.an("array");
             expect(p.project).to.be.empty();
         });

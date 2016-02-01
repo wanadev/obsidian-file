@@ -1,6 +1,6 @@
-# Wanadev Project File Format
+# Obsidian Project File Format
 
-This document describe the Wanadev Project file format.
+This document describe the Obsidian Project file format.
 
 
 ## Header
