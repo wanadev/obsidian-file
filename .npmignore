@@ -1,4 +1,6 @@
-wanaproject.tags
+obsidianproject.tags
 Gruntfile.js
 doc
 test
+.jshintrc
+.travis.yml
