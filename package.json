@@ -1,6 +1,6 @@
 {
   "name": "obsidian-file",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Library and CLI tool to read and write the Obsidian Project file format",
   "main": "lib/index.js",
   "scripts": {
