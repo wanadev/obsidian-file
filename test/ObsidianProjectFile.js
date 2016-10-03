@@ -178,7 +178,7 @@ describe("WprojectFile", function () {
                 expect(header.readUInt16BE(4)).to.equal(1);
             });
 
-            it("exports the header with the right length", function () {
+            it("exports the right type", function () {
                 expect(header.toString("ascii", 6, 16)).to.equal("GENERIC   ");
             });
 
@@ -232,7 +232,7 @@ describe("WprojectFile", function () {
 
         });
 
-        it("_exportBlobs exports blobInex and blobs as Buffer", function () {
+        it("_exportBlobs exports blobIndex and blobs as Buffer", function () {
             var p = new ObsidianProjectFile();
             p.addBlob(data.imageBuffer, "image.png", {mime: "image/png"}); // 192 B
             p.addBlobFromString("Hello!", "hello.txt", {mime: "text/plain"}); // 6 B

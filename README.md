@@ -32,7 +32,7 @@ with other files but must me named `__metadata__.json`, `__project__.json` and
 
 ### Help and other options
 
-    wanaproject -h
+    obsidian-file -h
 
 
 ## Tests

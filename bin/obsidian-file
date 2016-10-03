@@ -165,14 +165,14 @@ function create(dest, metadata, project, index, files, options) {
 cli.main(function (args, opts) {
     if (!opts.extract && !opts.create && !opts.detail) {
         cli.error("You must define one of the following options: -x -c -d");
-        console.log("Try 'wanaproject -h' to get more informations");
+        console.log("Try 'obsidian-file -h' to get more informations");
         process.exit(1);
     }
 
     if (opts.detail) {
         if (!opts.file && args.length !== 1) {
             cli.error("You must provide a file to get details");
-            console.log("Try 'wanaproject -h' to get more informations");
+            console.log("Try 'obsidian-file -h' to get more informations");
             process.exit(1);
         }
         detail(opts.file || args[0]);
@@ -181,7 +181,7 @@ cli.main(function (args, opts) {
 
     if (!opts.file) {
         cli.error("You must define a working file with the -f option");
-        console.log("Try 'wanaproject -h' to get more informations");
+        console.log("Try 'obsidian-file -h' to get more informations");
         process.exit(1);
     }
 
