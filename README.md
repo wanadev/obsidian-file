@@ -44,6 +44,7 @@ To lunch all tests, run the following command:
 
 ## Changelog
 
+* **2.0.3**: Fixes documentation errors
 * **2.0.2**: Updates `cli` dependencie
 * **2.0.1**: Updates dependencies
 * **2.0.0**: First public release
