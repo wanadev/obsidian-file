@@ -5,7 +5,7 @@ var ObsidianProjectFile = require("../lib/ObsidianProjectFile.js");
 var codecs = require("../lib/codecs.js");
 var data = require("./data/data.js");
 
-describe("WprojectFile", function () {
+describe("ObsidianProjectFile", function () {
 
     describe("isObsidianProjectFile", function () {
 
@@ -94,7 +94,7 @@ describe("WprojectFile", function () {
             p.addBlob(data.imageBuffer, "buffer1", {mime: "image/png"});
 
             expect(p.getBlobAsData64Url("buffer1")).to.equal(data.imageData64);
-            expect(p.getBlobAsData64Url("foo")).to.be("");
+            expect(p.getBlobAsData64Url("foo")).to.be("data:application/octet-stream;base64,");
         });
 
         it("getBlobAsString returns the blob as string", function () {
