@@ -1,35 +1,35 @@
 {
-  "name": "obsidian-file",
-  "version": "2.0.3",
-  "description": "Library and CLI tool to read and write the Obsidian Project file format",
-  "main": "lib/index.js",
-  "scripts": {
-    "test": "node ./node_modules/.bin/grunt test"
-  },
-  "directories": {
-    "bin": "./bin"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wanadev/obsidian-file.git"
-  },
-  "author": "Wanadev <http://www.wanadev.fr/>",
-  "license": "BSD-3-Clause",
-  "dependencies": {
-    "abitbol": "^1.0.3",
-    "cli": "^1.0.0",
-    "mime": "^1.3.4",
-    "mkdirp": "^0.5.1",
-    "pako": "^1.0.1"
-  },
-  "devDependencies": {
-    "expect.js": "^0.3.1",
-    "grunt": "^1.0.1",
-    "grunt-browserify": "^5.0.0",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-mocha-phantomjs": "^4.0.0",
-    "grunt-mocha-test": "^0.13.2",
-    "mocha": "^4.0.0"
-  }
+    "name": "obsidian-file",
+    "version": "2.0.3",
+    "description": "Library and CLI tool to read and write the Obsidian Project file format",
+    "main": "lib/index.js",
+    "scripts": {
+        "test": "node ./node_modules/.bin/grunt test"
+    },
+    "directories": {
+        "bin": "./bin"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wanadev/obsidian-file.git"
+    },
+    "author": "Wanadev <http://www.wanadev.fr/>",
+    "license": "BSD-3-Clause",
+    "dependencies": {
+        "abitbol": "^2.0.0",
+        "cli": "^1.0.1",
+        "mime": "^2.3.1",
+        "mkdirp": "^0.5.1",
+        "pako": "^1.0.6"
+    },
+    "devDependencies": {
+        "expect.js": "^0.3.1",
+        "grunt": "^1.0.2",
+        "grunt-browserify": "^5.3.0",
+        "grunt-cli": "^1.2.0",
+        "grunt-contrib-jshint": "^1.1.0",
+        "grunt-mocha-phantomjs": "^4.0.0",
+        "grunt-mocha-test": "^0.13.3",
+        "mocha": "^5.1.1"
+    }
 }
