@@ -45,6 +45,7 @@ To lunch all tests, run the following command:
 
 ## Changelog
 
+* **3.0.0:** Uses zlib instead of Pako to improve perfs (pako still used in browser when the module is built using Browserify). (#17)
 * **2.0.4**: Updates dependencies
 * **2.0.3**: Fixes documentation errors
 * **2.0.2**: Updates `cli` dependencie
