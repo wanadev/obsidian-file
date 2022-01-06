@@ -1,5 +1,7 @@
 "use strict";
 
+var Buffer = require("buffer");
+
 var expect = require("expect.js");
 var ObsidianProjectFile = require("../lib/ObsidianProjectFile.js");
 var codecs = require("../lib/codecs.js");
