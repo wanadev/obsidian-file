@@ -1,7 +1,5 @@
 "use strict";
 
-var Buffer = require("buffer");
-
 var imageData64 = "data:image/png;base64,";
 imageData64 += "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAACVBMVEUAAAD/AAD//";
 imageData64 += "/9nGWQeAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAAd0SU1FB9";
