@@ -10,7 +10,7 @@ describe("ObsidianProjectFile", function () {
     describe("isObsidianProjectFile", function () {
 
         it("checks that the buffer has the right magic", function () {
-            var buff = new Buffer(data.projectBuffer.length);
+            var buff = Buffer.alloc(data.projectBuffer.length);
             data.projectBuffer.copy(buff);
             buff[0] = 0x20;
 
@@ -18,7 +18,7 @@ describe("ObsidianProjectFile", function () {
         });
 
         it("checks that the buffer size is coherent with values found in the header", function () {
-            var buff = new Buffer(data.projectBuffer.length-1);
+            var buff = Buffer.alloc(data.projectBuffer.length-1);
             data.projectBuffer.copy(buff);
 
             expect(ObsidianProjectFile.isObsidianProjectFile(buff)).not.to.be.ok();
@@ -320,7 +320,7 @@ describe("ObsidianProjectFile", function () {
         describe("_loadHeader", function () {
 
             var project = null;
-            var header = new Buffer([
+            var header = Buffer.from([
                 0x57, 0x50, 0x52, 0x4a, 0x00, 0x01, 0x47, 0x45,
                 0x4e, 0x45, 0x52, 0x49, 0x43, 0x20, 0x20, 0x20,
                 0x01, 0x00, 0x00, 0x00, 0x33, 0x00, 0x00, 0x00,
@@ -358,7 +358,7 @@ describe("ObsidianProjectFile", function () {
             });
 
             it("raises an exception if the buffer is too small to contains the header", function () {
-                expect(project._loadHeader.bind(null, new Buffer(42))).to.throwException(/BufferTruncated/);
+                expect(project._loadHeader.bind(null, Buffer.alloc(42))).to.throwException(/BufferTruncated/);
             });
 
         });
@@ -401,7 +401,7 @@ describe("ObsidianProjectFile", function () {
                     metadata: {}
                 },
                 "hello.txt": {
-                    _buffer: new Buffer("Hello World!\n", "ascii"),
+                    _buffer: Buffer.from("Hello World!\n", "ascii"),
                     mime: "text/plain",
                     metadata: {}
                 }
