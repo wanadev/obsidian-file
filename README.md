@@ -45,9 +45,12 @@ To lunch all tests, run the following command:
 
 ## Changelog
 
+* **3.0.1:**
+  * Fix implicit and deprecated usages of Buffer (@tneullas, #18, #19)
+  * Update dependencies
 * **3.0.0:** Uses zlib instead of Pako to improve perfs (pako still used in browser when the module is built using Browserify). (#17)
-* **2.0.4**: Updates dependencies
-* **2.0.3**: Fixes documentation errors
-* **2.0.2**: Updates `cli` dependencie
-* **2.0.1**: Updates dependencies
+* **2.0.4**: Update dependencies
+* **2.0.3**: Fix documentation errors
+* **2.0.2**: Update `cli` dependencie
+* **2.0.1**: Update dependencies
 * **2.0.0**: First public release
