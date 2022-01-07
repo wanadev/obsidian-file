@@ -16,17 +16,17 @@
     "author": "Wanadev <http://www.wanadev.fr/>",
     "license": "BSD-3-Clause",
     "dependencies": {
-        "abitbol": "^2.0.0",
+        "abitbol": "^2.0.1",
         "cli": "^1.0.1",
-        "mime": "^2.3.1",
-        "mkdirp": "^0.5.1"
+        "mime": "^3.0.0",
+        "mkdirp": "^1.0.4"
     },
     "devDependencies": {
         "expect.js": "^0.3.1",
-        "grunt": "^1.0.2",
+        "grunt": "^1.4.1",
         "grunt-browserify": "^6.0.0",
-        "grunt-cli": "^1.2.0",
-        "grunt-contrib-jshint": "^1.1.0",
+        "grunt-cli": "^1.4.3",
+        "grunt-contrib-jshint": "^3.1.1",
         "grunt-mocha-phantomjs": "^4.0.0",
         "grunt-mocha-test": "^0.13.3",
         "mocha": "^9.1.3"
