@@ -42,12 +42,36 @@ To lunch all tests, run the following command:
 
 ## Changelog
 
-* **3.0.1:**
+* **[NEXT]** (changes on master that have not been released yet):
+
+  * Replaced deprecated mocha-phantomjs by mocha-headless-chrome to run tests (@jbghoul, #26)
+  * Updated dependencies (@jbghoul, #26)
+
+* **v3.0.1:**
+
   * Fix implicit and deprecated usages of Buffer (@tneullas, #18, #19)
-  * Update dependencies
-* **3.0.0:** Uses zlib instead of Pako to improve perfs (pako still used in browser when the module is built using Browserify). (#17)
-* **2.0.4**: Update dependencies
-* **2.0.3**: Fix documentation errors
-* **2.0.2**: Update `cli` dependencie
-* **2.0.1**: Update dependencies
-* **2.0.0**: First public release
+  * Updated dependencies
+
+* **v3.0.0:**
+
+  * Pako replaced by zlib to improve perfs on Node.js (pako is still used in browser when the module is built using Browserify) (#17)
+
+* **v2.0.4**:
+
+  * Updated dependencies
+
+* **v2.0.3**:
+
+  * Fixed documentation errors
+
+* **v2.0.2**:
+
+  * Updated `cli` dependencie
+
+* **v2.0.1**:
+
+  * Updated dependencies
+
+* **v2.0.0**:
+
+  * First public release
