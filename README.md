@@ -1,8 +1,9 @@
-# Obsidian Project File Library
+# Obsidian Project File
 
-[![Build Status](https://travis-ci.org/wanadev/obsidian-file.svg?branch=master)](https://travis-ci.org/wanadev/obsidian-file)
+[![Lint and test](https://github.com/wanadev/obsidian-file/actions/workflows/tests.yml/badge.svg)](https://github.com/wanadev/obsidian-file/actions/workflows/tests.yml)
 [![NPM Version](http://img.shields.io/npm/v/obsidian-file.svg?style=flat)](https://www.npmjs.com/package/obsidian-file)
 [![License](http://img.shields.io/npm/l/obsidian-file.svg?style=flat)](https://github.com/wanadev/obsidian-file/blob/master/LICENSE)
+[![Discord](https://img.shields.io/badge/chat-Discord-8c9eff?logo=discord&logoColor=ffffff)](https://discord.gg/BmUkEdMuFp)
 
 
 Library and CLI tool to read and write the Obsidian Project file format.
