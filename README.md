@@ -110,6 +110,8 @@ Tu run tests, use the following command:
 
 * **[NEXT]** (changes on master that have not been released yet):
 
+* **v3.0.2:**
+
   * Replaced deprecated mocha-phantomjs by mocha-headless-chrome to run tests (@jbghoul, #26)
   * Updated dependencies (@jbghoul, #26)
 

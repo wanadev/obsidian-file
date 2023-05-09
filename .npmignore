@@ -3,4 +3,5 @@ Gruntfile.js
 doc
 test
 .jshintrc
-.travis.yml
+.github
+RELEASE.rst
