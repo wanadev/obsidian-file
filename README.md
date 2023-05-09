@@ -9,7 +9,38 @@
 Library and CLI tool to read and write the Obsidian Project file format.
 
 
-## CLI
+## Install
+
+    npm install obsidian-file
+
+
+## obsidian-file CLI tool
+
+### Usage
+
+    Usage:
+      obsidian-file [OPTIONS] [ARGS]
+
+    Options:
+      -x, --extract          Extract the sections of the given project
+      -c, --create           Create a project file from the given files
+      -d, --detail           Get informations about the given project file
+      -f, --file FILE        The project file to read or write
+      -t, --type [STRING]    Project type (Default is GENERIC)
+      -m, --metadata FILE    JSON file that contains project's metadata
+      -M, --metadata-format [N]Format of the metadata section (0: JSON, 1:
+                               JSON+Deflate)  (Default is 1)
+      -p, --project FILE     JSON file that contains the seriallized project
+      -P, --project-format [N]Format of the project section (0: JSON, 1:
+                              JSON+Deflate)  (Default is 1)
+      -i, --index FILE       JSON file that contains the blob index
+                             (automatically built by default)
+      -I, --index-format [N] Format of the blob index section (0: JSON, 1:
+                             JSON+Deflate)  (Default is 1)
+      -k, --no-color         Omit color from output
+          --debug            Show debug information
+      -h, --help             Display help and usage details
+
 
 ### Get informations about a project file
 
@@ -29,16 +60,50 @@ be passed explicitly with the `-m`, `-p` and `-i` options, or can be listed
 with other files but must me named `__metadata__.json`, `__project__.json` and
 `__blobindex__.json`.
 
-### Help and other options
 
-    obsidian-file -h
+## Library
+
+TODO
 
 
-## Tests
+## File format
 
-To lunch all tests, run the following command:
+See [doc/obsidian-project-file-format.md](./doc/obsidian-project-file-format.md).
 
-    npm test
+
+## Contributing
+
+### Questions
+
+If you have any question, you can:
+
+* [Open an issue on GitHub][gh-issue]
+* [Ask on discord][discord]
+
+### Bugs
+
+If you found a bug, please [open an issue on Github][gh-issue] with as much information as possible.
+
+### Pull Requests
+
+Please consider [filing a bug][gh-issue] before starting to work on a new feature. This will allow us to discuss the best way to do it. This is of course not necessary if you just want to fix some typo or small errors in the code.
+
+### Coding Style / Lint
+
+To check coding style, run the follwoing command:
+
+    npx grunt jshint
+
+### Tests
+
+Tu run tests, use the following command:
+
+    npx grunt test
+
+
+[gh-issue]: https://github.com/wanadev/obsidian-file/issues
+[discord]: https://discord.gg/BmUkEdMuFp
+
 
 
 ## Changelog
