@@ -152,7 +152,7 @@ function create(dest, metadata, project, index, files, options) {
         var blobId = path.basename(files[i]);
         var record = blobIndex[blobId] || {};
         if (!record.mime) {
-            record.mime = mime.lookup(files[i]);
+            record.mime = mime.getType(files[i]);
         }
         console.log("* Adding blob from '" + files[i] + "' as " + record.mime);
         wp.addBlob(fs.readFileSync(files[i]), blobId, record);
