@@ -110,6 +110,10 @@ Tu run tests, use the following command:
 
 * **[NEXT]** (changes on master that have not been released yet):
 
+  * Nothing yet ;)
+
+* **v3.0.3:**
+
   * fix: Fixed 'mime.lookup is not a function' error on obidian-file CLI (@flozz, #29)
 
 * **v3.0.2:**
