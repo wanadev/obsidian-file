@@ -35,7 +35,7 @@ module.exports = function (grunt) {
 
         shell: {
             mocha_headless_chrome: {
-                command: "npx mocha-headless-chrome -f build/test/browser/test.html",
+                command: "npx mocha-headless-chrome -f build/test/browser/test.html -a no-sandbox",
             }
         },
 
