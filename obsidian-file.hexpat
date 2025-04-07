@@ -1,5 +1,5 @@
 #pragma description Obsidian Project File
-#pragma magic [0x57 0x50 0x52 0x4A] @ 0
+#pragma magic [57 50 52 4A] @ 0
 #pragma endian big
 
 import hex.dec;
