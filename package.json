@@ -18,7 +18,7 @@
     "dependencies": {
         "abitbol": "^2.1.1",
         "cli": "^1.0.1",
-        "mime": "^3.0.0",
+        "mime": "^4.0.7",
         "mkdirp": "^3.0.1"
     },
     "devDependencies": {
