@@ -27,7 +27,9 @@ The `Header` is a 51 byte binary section containing the following fields:
 __NOTE:__ Integer fields are unsigned and stored as bigendian.
 
 
-## Metadata
+## Sections
+
+### Metadata
 
 The `Metadata` section contains metadata as key / value pairs encoded in the JSON format. Additionally, this section can be compressed using the *deflate* algorithm.
 
@@ -40,12 +42,12 @@ E.g.:
     }
 
 
-## Project
+### Project
 
 The `Project` section contains the project objects serialised as JSON. Additionally, this section can be compressed using the *deflate* algorithm.
 
 
-## BlobIndex
+### BlobIndex
 
 The `BlobIndex` section lists the attached blobs. The blob list is encoded in the JSON format and can be compressed using the *deflate* algorithm.
 
@@ -67,7 +69,14 @@ Example of `BlobIndex` structure:
 * `metadata`: any metadata about the blob
 
 
-## Blobs
+### Blobs
 
-The `Blobs` section contains a concatenation of all attached blobs described in the `BlobIndex` section.
+The `Blobs` section contains a concatenation of all attached blobs described in the `BlobIndex` section. This section can be empty if there are no attachments.
 
+
+## Sections encoding
+
+Sections Metadata, Project and BlobIndex can use two different encodings depending of the value set in the header:
+
+* **JSON:** a JSON encoded in UTF-8,
+* **JSON+deflate:** a JSON encoded in UTF-8 and then compressed with *raw deflate* algorithm (`windowBits` param of the Zlib set to `-15` [doc](https://www.zlib.net/manual.html#Advanced)).
