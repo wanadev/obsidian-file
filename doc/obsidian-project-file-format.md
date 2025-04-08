@@ -31,7 +31,7 @@ __NOTE:__ Integer fields are unsigned and stored as bigendian.
 
 ### Metadata
 
-The `Metadata` section contains metadata as key / value pairs encoded in the JSON format. Additionally, this section can be compressed using the *deflate* algorithm.
+The `Metadata` section contains metadata as key / value pairs encoded in the JSON format. Additionally, this section can be compressed using the *raw deflate* algorithm.
 
 E.g.:
 
@@ -44,12 +44,12 @@ E.g.:
 
 ### Project
 
-The `Project` section contains the project objects serialised as JSON. Additionally, this section can be compressed using the *deflate* algorithm.
+The `Project` section contains the project objects serialised as JSON. Additionally, this section can be compressed using the *raw deflate* algorithm.
 
 
 ### BlobIndex
 
-The `BlobIndex` section lists the attached blobs. The blob list is encoded in the JSON format and can be compressed using the *deflate* algorithm.
+The `BlobIndex` section lists the attached blobs. The blob list is encoded in the JSON format and can be compressed using the *raw deflate* algorithm.
 
 Example of `BlobIndex` structure:
 
@@ -74,7 +74,7 @@ Example of `BlobIndex` structure:
 The `Blobs` section contains a concatenation of all attached blobs described in the `BlobIndex` section. This section can be empty if there are no attachments.
 
 
-## Sections encoding
+## Sections formats
 
 Sections Metadata, Project and BlobIndex can use two different encodings depending of the value set in the header:
 
