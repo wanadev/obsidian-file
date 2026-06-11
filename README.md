@@ -110,7 +110,12 @@ Tu run tests, use the following command:
 
 * **[NEXT]** (changes on master that have not been released yet):
 
+  * Nothing yet ;)
+
+* **v3.1.0:**
+
   * feat(codecs): Use TextEncoder if available to improve performance (@jbghoul, #69)
+  * misc(deps): Updated dependencies (@jbghoul)
 
 * **v3.0.3:**
 
